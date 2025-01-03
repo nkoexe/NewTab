@@ -1,7 +1,6 @@
 :root {
   --font-family: "Rubik", sans-serif;
-  --font-size: 15em;
-  --clock-color: #000000bf;
+  --clock-size: 15em;
 }
 
 @keyframes anim {
@@ -45,20 +44,10 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-}
-
-body {
-  /* background: linear-gradient(to bottom, #dff2fd, #56758a); */
-  background-color: #954c66;
-  /* background-image: url('https://source.unsplash.com/random/6x4/?pastel');  */
-  /* background-image: url('bg.png'); */
-  /* background-size: cover; */
-  /* backdrop-filter: blur(20px); */
-
   user-select: none;
 }
 
-#blur {
+/* #blur {
   position: absolute;
   top: 0;
   left: 0;
@@ -66,15 +55,15 @@ body {
   height: 100%;
   backdrop-filter: blur(500px);
   transform: translateZ(0);
-}
+} */
 
 #time {
   position: absolute;
   left: 3%;
   top: 6%;
-  color: var(--clock-color);
+  color: #000000bf;
   font-family: var(--font-family);
-  font-size: var(--font-size);
+  font-size: var(--clock-size);
   font-weight: 700;
 
   display: grid;

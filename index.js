@@ -1,5 +1,6 @@
 // Number of colors in the background gradient 
 const bg_colors = 4;
+const bg_dark = false;
 
 function refresh_clock() {
   const hour_text = document.getElementById("hour");
@@ -24,6 +25,20 @@ function generate_pastel() {
   let hsl = rgb2hsl(r, g, b);
   hsl[1] = 0.9;
   hsl[2] = 0.8;
+
+  let rgb = hsl2rgb(hsl[0], hsl[1], hsl[2]);
+
+  return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
+}
+
+function generate_dark() {
+  let r = Math.floor(Math.random() * 256);
+  let g = Math.floor(Math.random() * 256);
+  let b = Math.floor(Math.random() * 256);
+
+  let hsl = rgb2hsl(r, g, b);
+  hsl[1] = 0.3;
+  hsl[2] = 0.2;
 
   let rgb = hsl2rgb(hsl[0], hsl[1], hsl[2]);
 
@@ -86,23 +101,35 @@ function hsl2rgb(h, s, l) {
 
 let gradient_colors = [];
 
-// Generate random pastel colors
-for (let i = 0; i < bg_colors; i++) {
-  gradient_colors.push(generate_pastel());
+if (bg_dark) {
+  // Generate random dark colors
+  for (let i = 0; i < bg_colors; i++) {
+    gradient_colors.push(generate_dark());
+  }
+} else {
+  // Generate random pastel colors
+  for (let i = 0; i < bg_colors; i++) {
+    gradient_colors.push(generate_pastel());
+  }
 }
 
 // Construct gradient string
-let gradient_style = "linear-gradient(to bottom right, ";
+let gradient_style = "";
 for (let j = 0; j < bg_colors; j++) {
-  gradient_style += gradient_colors[j];
+  let angle = 360 / bg_colors * j + 180 / bg_colors;
+  gradient_style += "linear-gradient(" + angle + "deg, " + gradient_colors[j] + ", transparent)";
+
   if (j < bg_colors - 1) {
     gradient_style += ", ";
   }
 }
-gradient_style += ")";
 
 // Apply gradient to body
 document.body.style.background = gradient_style;
+
+if (bg_dark) {
+  document.querySelector("#time").style.color = "#ffffffa0";
+}
 
 // Start the clock
 refresh_clock();
